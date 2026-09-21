@@ -1,0 +1,38 @@
+# Local Python environments and caches.
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+/tasks/
+.DS_Store
+Thumbs.db
+
+# Local credentials and environment configuration.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials*.json
+secrets*.json
+.aws/
+.ssh/
+
+# Generated output: publish only the current reviewed deck and contact sheet.
+/out/*
+!/out/vibe-coding-workshop-draft-v8.pptx
+!/out/vibe-coding-workshop-draft-v8.pdf
+!/out/v8-contact-sheet.jpg
+
+# Machine-specific font configuration and download/extraction leftovers.
+/assets/fonts.conf
+/assets/v5/*.ico
+/assets/v5/extract_portraits.py
+
+# Editor scratch and Office lock files.
+*.swp
+*.swo
+~$*
