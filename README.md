@@ -20,6 +20,8 @@ The prompting framework is **Purpose, Design, Behaviour, Constraints, Verify**. 
 
 The chosen concept helps Durham students compare rental listings and find compatible flatmates. The first prototype uses clearly labelled fictional listings and profiles, not live website scraping, messaging or payments. This repository contains workshop material, not a completed rental application. The club-event chats remain small teaching examples.
 
+The complete conversational prompt, framework mapping and live demonstration path are in [docs/demo-prompt.md](docs/demo-prompt.md).
+
 ## Build and edit
 
 See [SETUP.md](SETUP.md) for installation, building and PDF export.
