@@ -22,11 +22,11 @@ Install LibreOffice separately to export a PDF. Its `soffice` executable must be
 
 ```sh
 python build_slides.py
-soffice --headless --convert-to pdf --outdir out out/vibe-coding-workshop-draft-v8.pptx
-python render_review.py vibe-coding-workshop-draft-v8
+soffice --headless --convert-to pdf --outdir out out/vibe-coding-workshop-draft-v9.pptx
+python render_review.py vibe-coding-workshop-draft-v9
 ```
 
-The build produces `out/vibe-coding-workshop-draft-v8.pptx`, regenerates the four gradient backgrounds, and creates the contact QR images. LibreOffice creates the matching PDF. The renderer makes `out/v8-contact-sheet.jpg` and individual `out/v8-slide-XX.png` previews. Pass the version explicitly: the renderer currently defaults to an older development version when no argument is supplied.
+The build produces `out/vibe-coding-workshop-draft-v9.pptx`, regenerates the four gradient backgrounds, and creates the contact QR images. LibreOffice creates the matching PDF. The renderer makes `out/v9-contact-sheet.jpg` and individual `out/v9-slide-XX.png` previews. Pass the version explicitly: the renderer currently defaults to an older development version when no argument is supplied.
 
 The renderer verifies matching slide/page counts, presenter notes and slide bounds, and reports the fonts embedded in the PDF. Visually inspect the contact sheet and changed slides before publishing. The expected text fonts are General Sans Regular and Medium; a symbol fallback can appear for the small arrow in the illustrative chat composer.
 
@@ -45,4 +45,4 @@ The tool marks belong to their respective owners. Portraits and their derivative
 
 ## Updating the reviewed version
 
-The output filename is set near the end of `build_slides.py`. When issuing a new reviewed version, change that filename, pass its stem to the renderer, and update the three output allowlist entries in `.gitignore`. Older exports, per-slide previews, temporary verification files and QR intermediates remain local. The current repository includes only the reviewed V8 PPTX, PDF and contact sheet from `out/`.
+The output filename is set near the end of `build_slides.py`. When issuing a new reviewed version, change that filename, pass its stem to the renderer, and update the three output allowlist entries in `.gitignore`. Older per-slide previews, temporary verification files and QR intermediates remain local. The repository currently retains the reviewed V8 and V9 PPTX, PDF and contact sheets from `out/`.

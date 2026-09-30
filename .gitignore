@@ -26,6 +26,9 @@ secrets*.json
 !/out/vibe-coding-workshop-draft-v8.pptx
 !/out/vibe-coding-workshop-draft-v8.pdf
 !/out/v8-contact-sheet.jpg
+!/out/vibe-coding-workshop-draft-v9.pptx
+!/out/vibe-coding-workshop-draft-v9.pdf
+!/out/v9-contact-sheet.jpg
 
 # Machine-specific font configuration and download/extraction leftovers.
 /assets/fonts.conf

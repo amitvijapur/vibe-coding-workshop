@@ -1,5 +1,7 @@
 # Vibe Coding Workshop
 
+Version 9 updates Amit's host credential from AWS SBGL to OpenAI Campus Ambassador in the visible slide and presenter notes. All other workshop content remains unchanged from version 8.
+
 Workshop review draft for Amit and Jason. The chosen venture demo helps Durham students compare rental listings and find compatible flatmates. The first prototype uses fictional listings and profiles; real integrations are outside this slide revision.
 
 ## Files

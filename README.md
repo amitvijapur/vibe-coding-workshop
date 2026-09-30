@@ -4,11 +4,11 @@ A beginner workshop by Amit Vijapur and Jason Cheng. Learn to describe a product
 
 ## Latest slides
 
-- [Editable PowerPoint, v8](out/vibe-coding-workshop-draft-v8.pptx)
-- [PDF preview, v8](out/vibe-coding-workshop-draft-v8.pdf)
-- [Slide overview](out/v8-contact-sheet.jpg)
+- [Editable PowerPoint, v9](out/vibe-coding-workshop-draft-v9.pptx)
+- [PDF preview, v9](out/vibe-coding-workshop-draft-v9.pdf)
+- [Slide overview](out/v9-contact-sheet.jpg)
 
-20 slides with presenter notes. Older exports stay local. [Revision history](docs/deck-history.md).
+20 slides with presenter notes. Version 9 updates Amit's role to OpenAI Campus Ambassador. Older exports remain available. [Revision history](docs/deck-history.md).
 
 ## Workshop flow
 

@@ -86,18 +86,18 @@ def slide(label, background='paper', note=''):
 def title(s, text, y=1.15, size=49, w=12.0):
     textbox(s, text, .65, .8, w, 1.65, 54, weight='Medium', spacing=1.0)
 
-s = slide('Workshop draft · version 6', 'paper', 'Welcome. Today is for complete beginners. Introduce this as a chance to build one small working thing with AI. Confirm the official event name before adding it. The demonstration venture and its final prompt are still to be chosen by Amit and Jason.')
+s = slide('Workshop draft · version 9', 'paper', 'Welcome. Today is for complete beginners. Introduce this as a chance to build one small working thing with AI. Confirm the official event name before adding it. The demonstration venture and its final prompt are still to be chosen by Amit and Jason.')
 textbox(s, 'FROM IDEA TO FIRST PROTOTYPE', .63, 1.7, 8, .35, 13)
 textbox(s, 'Vibe\ncoding.', .50, 2.47, 12.1, 3.7, 112, weight='Medium', spacing=.90)
 textbox(s, 'A workshop with Amit + Jason', .63, 6.59, 9, .4, 20)
 
-s = slide('Your hosts', 'warm', 'Verified against the founder-supplied DragonFly deck, slide-copy.md lines 175–198. Amit Vijapur: CTO, Computer Science at Durham, Accenture software engineering internship, built open-source Cortex. Jason Cheng: CEO, Economics at Durham, Entrepreneur Society President, venture capital, investment banking and startup experience. Introduce yourselves briefly. No workshop-specific claims or additional credentials have been invented.')
+s = slide('Your hosts', 'warm', 'Amit Vijapur: CTO at DragonFly, Computer Science at Durham and OpenAI Campus Ambassador. The OpenAI role was confirmed directly by Amit on 30 September 2026. Jason Cheng: CEO at DragonFly, Economics at Durham and Entrepreneur Society President. Introduce yourselves briefly.')
 title(s, 'About us', 1.08, 53)
 for x,filename in [(.40,'amit-cutout.png'),(6.77,'jason-cutout.png')]:
     s.shapes.add_picture(str(ASSETS/'v6'/filename),Inches(x),Inches(2.75),width=Inches(2.70))
 textbox(s, 'Amit Vijapur', 3.10, 2.6, 3.47, .8, 31, weight='Medium')
 textbox(s, 'Jason Cheng', 9.47, 2.6, 3.24, .8, 31, weight='Medium')
-textbox(s, 'CTO, DragonFly\nComputer Science,\nDurham\nAWS SBGL', 3.10, 3.65, 3.47, 2.3, 22, spacing=1.25)
+textbox(s, 'CTO, DragonFly\nComputer Science, Durham\nOpenAI Campus\nAmbassador', 3.10, 3.65, 3.47, 2.3, 21, spacing=1.25)
 textbox(s, 'CEO, DragonFly\nEconomics, Durham\nEntrepreneur Society\nPresident', 9.47, 3.65, 3.24, 2.3, 22, spacing=1.25)
 
 s = slide('Today’s plan', 'sun', 'Set expectations without inventing a total session length. First we run a live demonstration while teaching two frameworks: a useful prompt and a feedback loop. Next allow 5–10 minutes for questions, then everyone builds a small project for 30–45 minutes. Agree the exact duration and speaking split before the workshop. The demonstration and explanation timings remain flexible.')
@@ -362,7 +362,7 @@ title(s,'Thank you')
 textbox(s,'Amit + Jason',.65,5.95,12,.8,32)
 
 
-destination=OUT/'vibe-coding-workshop-draft-v8.pptx'
+destination=OUT/'vibe-coding-workshop-draft-v9.pptx'
 prs.save(destination)
 print(destination)
 print(f'{len(prs.slides)} slides; native editable text; presenter notes on every slide.')
