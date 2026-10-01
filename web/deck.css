@@ -18,7 +18,7 @@
   --control: #eeeade;
   --muted: #b4b2a5;
   --accent: #e2c475;
-  --ease-reveal: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-slide: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 * { box-sizing: border-box; }
@@ -58,7 +58,10 @@ button { -webkit-tap-highlight-color: transparent; }
   color-scheme: light;
   color: #181918;
 }
-.slide.is-active { display: block; }
+.slide.is-active {
+  display: block;
+  animation: slide-enter 350ms var(--ease-slide) both;
+}
 .shape { position: absolute; font-family: inherit; }
 img.shape { display: block; }
 .graphic-shape {
@@ -70,24 +73,9 @@ img.shape { display: block; }
 .text-shape p { margin: 0; padding: 0; min-height: 1em; }
 .text-shape a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 3px; }
 .image-link { display: block; width: 100%; height: 100%; }
-.slide.is-active .heading {
-  animation: title-enter 350ms var(--ease-reveal) both;
-}
-.reveal {
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(10px);
-  transition: opacity 350ms var(--ease-reveal), transform 350ms var(--ease-reveal), visibility 350ms;
-}
-.reveal.is-visible {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-.slide.is-restoring .reveal { transition: none; }
-@keyframes title-enter {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes slide-enter {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 #toolbar {
@@ -124,7 +112,6 @@ img.shape { display: block; }
   background: #303126;
 }
 #counter { min-width: 52px; text-align: center; font-size: 13px; font-variant-numeric: tabular-nums; }
-#reveal-count { min-width: 100px; color: var(--muted); font-size: 12px; text-align: center; }
 #progress {
   position: absolute;
   bottom: 63px;
@@ -135,7 +122,7 @@ img.shape { display: block; }
   width: 100%;
   transform: scaleX(0);
   z-index: 31;
-  transition: transform 250ms var(--ease-reveal);
+  transition: transform 250ms var(--ease-slide);
 }
 
 #overview, #notes {
@@ -192,13 +179,11 @@ img.shape { display: block; }
 @media (max-width: 700px) {
   #toolbar { gap: 3px; padding: 10px 5px; flex-wrap: wrap; }
   #toolbar button { padding: 7px; font-size: 12px; }
-  #reveal-count { display: none; }
   #counter { min-width: 43px; }
   #overview { grid-template-columns: 1fr; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
-  .reveal { transform: none; }
 }
 @media print {
   @page { size: 13.333333in 7.5in; margin: 0; }
@@ -211,12 +196,12 @@ img.shape { display: block; }
     width: 1280px;
     height: 720px;
     display: block !important;
+    animation: none !important;
+    opacity: 1 !important;
     break-after: page;
     page-break-after: always;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
   .slide:last-child { break-after: auto; page-break-after: auto; }
-  .reveal { opacity: 1 !important; visibility: visible !important; transform: none !important; }
-  .heading { animation: none !important; }
 }

@@ -99,12 +99,30 @@ textbox(s, 'Amit Vijapur', 3.10, 2.6, 3.47, .8, 31, weight='Medium')
 textbox(s, 'Jason Cheng', 9.47, 2.6, 3.24, .8, 31, weight='Medium')
 textbox(s, 'CTO, DragonFly\nComputer Science, Durham\nOpenAI Campus\nAmbassador', 3.10, 3.65, 3.47, 2.3, 21, spacing=1.25)
 textbox(s, 'CEO, DragonFly\nEconomics, Durham\nEntrepreneur Society\nPresident', 9.47, 3.65, 3.24, 2.3, 22, spacing=1.25)
-line(s,.65,6.23,12.0,'A986A6')
-s.shapes.add_picture(str(ASSETS/'v10'/'durham-university.png'),Inches(.70),Inches(6.43),width=Inches(2.05))
-s.shapes.add_picture(str(ASSETS/'v5'/'openai.png'),Inches(5.45),Inches(6.39),width=Inches(.48),height=Inches(.48))
-textbox(s, 'OpenAI', 6.05, 6.43, 1.55, .35, 17, weight='Medium')
-s.shapes.add_picture(str(ASSETS/'v10'/'dragonfly-mark-soft-black.png'),Inches(9.48),Inches(6.35),width=Inches(.55),height=Inches(.47))
-textbox(s, 'DragonFly', 10.14, 6.43, 1.9, .35, 17, weight='Medium')
+def host_logo(kind, x):
+    height = .65
+    if kind == 'Durham crest':
+        pic = s.shapes.add_picture(str(ASSETS/'v10'/'durham-university.png'),
+                                  Inches(x), Inches(6.35), width=Inches(height*857/972), height=Inches(height))
+        pic.crop_left = 0
+        pic.crop_top = 3/1413
+        pic.crop_right = (3230-857)/3230
+        pic.crop_bottom = (1413-975)/1413
+    elif kind == 'OpenAI logo':
+        pic = s.shapes.add_picture(str(ASSETS/'v5'/'openai.png'),
+                                  Inches(x), Inches(6.35), width=Inches(height), height=Inches(height))
+    else:
+        pic = s.shapes.add_picture(str(ASSETS/'v10'/'dragonfly-mark-soft-black.png'),
+                                  Inches(x), Inches(6.35), width=Inches(height*661/545), height=Inches(height))
+        pic.crop_left = 49/760
+        pic.crop_right = 50/760
+        pic.crop_top = 50/644
+        pic.crop_bottom = 49/644
+    pic.name = kind
+
+for kind,x in [('Durham crest',3.10),('OpenAI logo',4.17),('DragonFly logo',5.24),
+               ('Durham crest',9.47),('DragonFly logo',10.54)]:
+    host_logo(kind,x)
 
 s = slide('Today’s plan', 'sun', 'Set expectations without inventing a total session length. First we run a live demonstration while teaching two frameworks: a useful prompt and a feedback loop. Next allow 5–10 minutes for questions, then everyone builds a small project for 30–45 minutes. Agree the exact duration and speaking split before the workshop. The demonstration and explanation timings remain flexible.')
 title(s, 'Workshop plan', 1.07, 56)
@@ -213,32 +231,24 @@ for i,(label,words,color) in enumerate(segments):
     mini_rect(x,6.82,.22,.22,color)
     textbox(s,label,x+.35,6.73,2.03,.51,19)
 
-s = slide('Framework 2 · iteration + feedback', 'cool', 'FRAMEWORK 2, iteration plus feedback. Define iteration as improving the first version through another round. Check what actually happens, describe a precise improvement, let the tool change it, recheck the result, and save a known working version. The next slide gives the message structure inside Describe; it is not a third framework. A checkpoint is a saved working version. Demonstrate the selected tool’s save/version feature rather than assuming beginners understand Git.')
+s = slide('Framework 2 · iteration + feedback', 'cool', 'FRAMEWORK 2 combines the iteration loop and actionable feedback on this one teaching slide. Iteration means improving a version through another round. Check the main action, describe one precise change, let AI update it, recheck the action and save a working version. Within Describe, tell AI what happened, what you expected, what to keep and how to check. The next slide is one worked feedback and iteration example for the rental prototype. Demonstrate saving in the selected tool rather than assuming beginners know Git.')
 title(s, 'How to iterate\nand give feedback', 1.04, 49)
-steps=[('01','Check','Try the action.'),('02','Describe','Explain the change.'),('03','Change','Let AI update it.'),('04','Recheck','Try it again.'),('05','Save','Keep what works.')]
+textbox(s,'THE ITERATION LOOP',.65,2.60,6.5,.35,12,weight='Medium')
+textbox(s,'WHAT TO TELL AI',7.85,2.60,4.8,.35,12,weight='Medium')
+steps=[('01','Check','Try the main action.'),('02','Describe','Explain one change.'),
+       ('03','Change','Let AI update it.'),('04','Recheck','Try the action again.'),('05','Save','Keep what works.')]
 for i,(num,head,desc) in enumerate(steps):
-    y=2.75+i*.66
-    textbox(s,num,.65,y,.7,.45,20)
-    textbox(s,head,1.6,y-.035,3.3,.57,29,weight='Medium')
-    textbox(s,desc,5.25,y+.01,7.2,.54,25)
-line(s,.65,6.35,12.0,'78909D')
-textbox(s,'Checkpoint = a saved working version.',.65,6.64,12,.5,22)
+    y=3.16+i*.60
+    textbox(s,num,.65,y,.55,.38,17)
+    textbox(s,head,1.34,y-.035,2.20,.5,24,weight='Medium')
+    textbox(s,desc,3.65,y+.01,3.75,.5,20)
+for i,label in enumerate(['What happened','What you expected','What to keep','How to check']):
+    textbox(s,label,7.85,3.12+i*.68,4.8,.6,25,weight='Medium')
+textbox(s,'Change one thing. Recheck it. Save what works.',.65,6.64,12,.5,22)
 
-s = slide('Framework 2 · describe the change', 'sun', 'This four-part feedback message sits inside Describe in Framework 2. It is not an additional framework. Say what happened, what you expected, what should stay unchanged and how to check the update. Use the example only if it describes a real observation or explain that it is a hypothetical teaching example. Here the event button should reveal time and location, which connects back to the sample prompt.')
-title(s, 'How to give feedback', 1.06, 48)
-feedback=[('What happened','“View details” does nothing.'),
-          ('What I expected','Show the event time and location.'),
-          ('What to keep','Keep the current page design.'),
-          ('How to check','Click the button and check the details.')]
-for i,(label,body) in enumerate(feedback):
-    y=2.61+i*.79
-    textbox(s,label,.65,y,3.6,.5,21,weight='Medium')
-    textbox(s,body,4.8,y-.03,7.85,.71,27)
-textbox(s,'Then recheck the result yourself.',.65,6.59,12,.5,22)
-
-s = slide('Feedback example', 'paper', 'This is an illustrative follow-up message to the sample event-app prompt, not a report about the live venture demo. Read it in a natural voice. Match the highlighted parts to what happened, expected behaviour, what to keep and how to check. The feedback structure is part of Framework 2, not a third framework.')
-title(s,'Feedback example')
-textbox(s, 'PRETEND CODEX CONVERSATION · TEACHING EXAMPLE', .65, 2.10, 12, .35, 12, MUTED)
+s = slide('Feedback and iteration example', 'paper', 'A hypothetical second message to Codex about the Durham rental prototype. The rent filter is described as showing an over-budget property for this teaching example; do not imply this failure occurred in the live demo. The message gives the observation, expected result, what to keep and how to check. After AI updates the app, the presenter rechecks the filters and saves the working version, completing Check, Describe, Change, Recheck, Save.')
+title(s,'Feedback and iteration')
+textbox(s, 'EXAMPLE · A SECOND MESSAGE TO CODEX', .65, 2.10, 12, .35, 12, MUTED)
 mini_rect(.65,2.48,12.03,3.92,'FAF9F5','D4D4CC')
 textbox(s,'Codex',.98,2.63,3.0,.4,20,weight='Medium')
 line(s,.98,3.15,11.35,'D4D4CC')
@@ -250,10 +260,10 @@ tf.margin_left=tf.margin_right=tf.margin_top=tf.margin_bottom=0
 p=tf.paragraphs[0]
 p.line_spacing=1.32
 feedback_segments=[
-    ('What happened','Hey, I tapped “View details” but nothing happened. ','EAC5BA'),
-    ('Expected','I expected it to show the event time and location. ','EBDFA9'),
-    ('Keep','Please fix that but keep the page looking the same. ','C5D9EB'),
-    ('Check','Then try the button and check that the correct details show up.','DCCDEC')]
+    ('What happened','Hey, I set my budget to £150, but a £190 flat still shows up. ','EAC5BA'),
+    ('Expected','Only show places within my weekly budget. ','EBDFA9'),
+    ('Keep','Keep the layout and shortlist as they are. ','C5D9EB'),
+    ('Check + save','Try £150 and £200, check the results, then save the working version.','DCCDEC')]
 for label,words,color in feedback_segments:
     run=p.add_run()
     run.text=words
@@ -277,18 +287,18 @@ s = slide('Live demo · review', 'cool', 'Switch back to Codex. Show its status 
 title(s, 'Review the demo', 1.03, 79)
 textbox(s, 'What did we ask for?\nWhat did we get?', .65, 4.39, 12, 1.7, 35, spacing=1.2)
 
-s = slide('Live demo · check', note='Briefly distinguish Codex’s report from observed evidence. A summary saying a feature works is not the same as seeing it work. Run the main action, try missing or wrong input when the app has inputs, and check a narrow phone layout. If there are no inputs, choose a relevant alternate state instead. These are suggested checks, not claims of passed tests. Use fictional information only. Review further before collecting personal data, accepting payments or serving real users.')
+s = slide('Live demo · check', note='Compare the observed app with the actual prompt in docs/demo-prompt.md. Open the localhost URL, change maximum weekly rent and area and check the matching fictional listings. Shortlist one property, choose two living preferences and check that the two flatmate suggestions explain shared preferences. Repeat the journey at a 390 by 844 CSS-pixel viewport, explicitly required in the prompt. These are checks to perform, not claims of completed tests.')
 title(s, 'Check the result', 1.05, 50)
-checks=[('01','The main action','Does the button or action actually work?'),
-        ('02','Missing or wrong input','What happens if a field is empty?'),
-        ('03','A phone-sized screen','Can you still read and use it?')]
+checks=[('01','Rental filters','Do rent and area show the right listings?'),
+        ('02','Shortlist + flatmates','Can you pick one property and get two explained matches?'),
+        ('03','Phone layout','Does the journey work at 390 × 844?')]
 for i,(n,h,d) in enumerate(checks):
     y=2.48+i*1.04
     textbox(s,n,.65,y,.7,.4,17,MUTED)
     textbox(s,h,1.52,y-.04,4.7,.74,27,weight='Medium')
     textbox(s,d,6.37,y+.03,6.1,.9,23)
 line(s,.65,6.01,12.0)
-textbox(s, 'Use fictional data. Review before real users or payments.', .65, 6.49, 12,.55,20,MUTED)
+textbox(s, 'Open localhost. Check the complete journey using fictional data.', .65, 6.49, 12,.55,20,MUTED)
 
 s = slide('Live demo · complete the loop', 'sun', 'Demonstrate Framework 2 once. Find one genuine mismatch or choose one small audience-requested improvement, describe it using the four message parts, let Codex make the change, recheck it and save. If the original version has no clear bug, intentionally make a small useful improvement. Do not invent a failure. Ensure the room sees how the follow-up relates to their first prompt.')
 title(s, 'Make one improvement', 1.07, 57)
@@ -364,8 +374,11 @@ for x,name,handle in [(.65,'Amit Vijapur','amitvijapur'),(7.10,'Jason Cheng','ja
     link=textbox(s,f'linkedin.com/in/{handle}',x,6.08,5.48,.62,22)
     link.text_frame.paragraphs[0].runs[0].hyperlink.address=url
 
-s = slide('Thank you', 'warm', 'Thank everyone for participating. Encourage them to keep their first working version and return to the two frameworks when improving it.')
+s = slide('Thank you', 'warm', 'Thank everyone for participating. Encourage them to save their working version. The clickable repository link is https://github.com/amitvijapur/vibe-coding-workshop . Once the repository is made public, participants can download the current HTML presentation and demo prompt there.')
 title(s,'Thank you')
+textbox(s,'Get the slides + demo prompt',.65,4.70,12,.65,28,weight='Medium')
+repo_link=textbox(s,'github.com/amitvijapur/vibe-coding-workshop',.65,5.48,12,.55,23)
+repo_link.text_frame.paragraphs[0].runs[0].hyperlink.address='https://github.com/amitvijapur/vibe-coding-workshop'
 textbox(s,'Amit + Jason',.65,5.95,12,.8,32)
 
 

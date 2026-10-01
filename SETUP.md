@@ -26,7 +26,7 @@ The current presentation is HTML. Rebuild that single file with:
 python build_html.py
 ```
 
-Open `out/vibe-coding-workshop.html` in a browser. Assets, styles and navigation are embedded, so a web server and internet connection are unnecessary. The HTML deck uses General Sans through locally installed fonts. Space/right arrow reveals content and advances slides, left arrow reverses, A shows the whole slide, O opens an overview, N shows presenter notes and F toggles fullscreen.
+Open `out/vibe-coding-workshop.html` in a browser. Assets, styles and navigation are embedded, so a web server and internet connection are unnecessary. The HTML deck uses General Sans through locally installed fonts. Space/right arrow advances one whole slide, left arrow goes back, O opens an overview, N shows presenter notes and F toggles fullscreen. Each slide has one automatic fade and all its content is visible together.
 
 The shared content remains in `build_slides.py`. Importing it builds the content model without exporting a PowerPoint file. The PowerPoint export is deferred until the HTML deck is reviewed.
 
@@ -58,6 +58,6 @@ The tool marks belong to their respective owners. Portraits and their derivative
 
 ## Updating the current presentation
 
-Edit the shared content in `build_slides.py`, the reveal order in `build_html.py`, or the browser controls in `web/`. Run `python build_html.py` to update the same `out/vibe-coding-workshop.html` file. Keep revisions in Git history. The reviewed V8 and V9 PowerPoint/PDF exports remain historical snapshots until the final export is requested.
+Edit the shared content in `build_slides.py`, the HTML rendering in `build_html.py`, or the browser controls in `web/`. Run `python build_html.py` to update the same `out/vibe-coding-workshop.html` file. Keep revisions in Git history. The reviewed V8 and V9 PowerPoint/PDF exports remain historical snapshots until the final export is requested.
 
 Optional browser verification uses Node.js with `playwright` and `sharp`, and an installed Chrome browser. Run `node check_html.cjs` with those packages available. It exercises the presenter controls and captures slide images plus `out/html-overview.png`.

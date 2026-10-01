@@ -19,33 +19,42 @@ let browser;
     return {
       title: slide.dataset.title,
       slide: [...document.querySelectorAll('.slide')].indexOf(slide) + 1,
-      steps: Number(slide.dataset.steps),
-      step: Number(new URLSearchParams(location.hash.slice(1)).get('step')),
-      visible: [...slide.querySelectorAll('.reveal.is-visible')].map(el => Number(el.dataset.step)),
+      hash: location.hash,
     };
   });
   await page.goto(deckURL);
   await page.evaluate(() => document.fonts.ready);
-  assert.equal(await page.locator('.slide').count(), 20);
-  assert.equal((await state()).step, 0);
-  await page.keyboard.press('Space');
-  assert.equal((await state()).step, 1);
-  assert.equal(await page.locator('.slide.is-active .reveal').first().evaluate(el => getComputedStyle(el).transitionDuration.split(',')[0].trim()), '0.35s');
+  assert.equal(await page.locator('.slide').count(), 19);
+  assert.equal((await state()).slide, 1);
+  assert.equal(await page.locator('.reveal, [data-step], [data-steps]').count(), 0);
+  assert.equal(await page.locator('#show-all, #reveal-count').count(), 0);
+  assert.equal(await page.locator('.slide.is-active').evaluate(el => getComputedStyle(el).animationDuration), '0.35s');
+  assert.equal(await page.locator('.slide.is-active .heading').evaluate(el => getComputedStyle(el).animationName), 'none');
   await page.waitForTimeout(400);
-  assert.equal(await page.locator('.slide.is-active .reveal').first().evaluate(el => getComputedStyle(el).opacity), '1');
-  await page.keyboard.press('ArrowRight');
+  assert.equal(await page.locator('.slide.is-active').evaluate(el => getComputedStyle(el).opacity), '1');
+  await page.keyboard.press('Space');
   assert.equal((await state()).slide, 2);
-  for (let step = 1; step <= 3; step++) {
-    await page.keyboard.press('ArrowRight');
-    const current = await state();
-    assert.equal(current.step, step);
-    assert(current.visible.every(value => value <= step));
-  }
+  // Navigation responds immediately while the whole-slide fade is running.
+  await page.keyboard.press('ArrowRight');
+  assert.equal((await state()).slide, 3);
+  await page.locator('#canvas').click({ position: { x: 1100, y: 650 } });
+  assert.equal((await state()).slide, 4);
   await page.keyboard.press('ArrowLeft');
-  assert.equal((await state()).step, 2);
+  assert.equal((await state()).slide, 3);
+  await page.keyboard.press('Backspace');
+  assert.equal((await state()).slide, 2);
+  const logos = page.locator('.slide.is-active [aria-label="Durham crest"], .slide.is-active [aria-label="OpenAI logo"], .slide.is-active [aria-label="DragonFly logo"]');
+  assert.equal(await logos.count(), 5);
+  const heights = await logos.evaluateAll(elements => elements.map(element => element.style.height));
+  assert.equal(new Set(heights).size, 1, 'Host logo heights should be consistent');
+  assert.equal(await page.locator('.slide.is-active [aria-label="Durham crest"]').count(), 2);
+  await page.keyboard.press('PageDown');
+  assert.equal((await state()).slide, 3);
+  await page.keyboard.press('PageUp');
+  assert.equal((await state()).slide, 2);
   await page.reload();
   assert.equal((await state()).slide, 2);
-  assert.equal((await state()).step, 2);
+  assert.equal((await state()).hash, '#slide=2');
   await page.keyboard.press('n');
   assert(await page.locator('#notes').isVisible());
   assert.match(await page.locator('#notes').textContent(), /OpenAI Campus Ambassador/);
@@ -53,31 +62,52 @@ let browser;
   assert(!(await page.locator('#notes').isVisible()));
   await page.keyboard.press('o');
   assert(await page.locator('#overview').isVisible());
-  assert.equal(await page.locator('#overview button').count(), 20);
+  assert.equal(await page.locator('#overview button').count(), 19);
   await page.locator('#overview button').nth(6).click();
   assert.equal((await state()).slide, 7);
   assert(!(await page.locator('#overview').isVisible()));
-  await page.locator('#show-all').click();
-  assert.equal((await state()).step, 5);
   await page.locator('#next').click();
   assert.equal((await state()).slide, 8);
+  await page.evaluate(() => { location.hash = 'slide=7&step=99'; });
+  await page.waitForFunction(() => location.hash === '#slide=7');
+  assert.equal((await state()).slide, 7);
 
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  assert.equal(await page.locator('.slide.is-active .reveal').first().evaluate(el => getComputedStyle(el).transitionDuration), '0s');
+  assert.equal(await page.locator('.slide.is-active').evaluate(el => getComputedStyle(el).animationName), 'none');
   await page.keyboard.press('Home');
   assert.equal((await state()).slide, 1);
   await page.keyboard.press('End');
-  assert.equal((await state()).slide, 20);
-  assert.equal((await state()).step, 1);
+  assert.equal((await state()).slide, 19);
   assert(await page.locator('#next').isDisabled());
+  assert.match(await page.locator('.slide.is-active').textContent(), /Thank you/i);
+  assert(await page.locator('.slide.is-active a[href="https://github.com/amitvijapur/vibe-coding-workshop"]').count() > 0);
+  await page.evaluate(() => { location.hash = 'slide=12'; });
+  await page.waitForFunction(() => document.querySelector('.slide.is-active').dataset.title === 'Check the result');
+  const checkText = await page.locator('.slide.is-active').textContent();
+  assert.match(checkText, /rent|price|budget/i);
+  assert.match(checkText, /area/i);
+  assert.match(checkText, /shortlist/i);
+  assert.match(checkText, /flatmate/i);
+  assert.match(checkText, /two|2/i);
+  assert.match(checkText, /390\s*×\s*844/);
+  await page.evaluate(() => { location.hash = 'slide=9'; });
+  await page.waitForFunction(() => document.querySelector('.slide.is-active').dataset.title.includes('How to iterate'));
+  const frameworkText = await page.locator('.slide.is-active').textContent();
+  assert.match(frameworkText, /Recheck/);
+  assert.match(frameworkText, /What happened/);
+  await page.keyboard.press('ArrowRight');
+  assert.equal((await state()).title, 'Feedback and iteration');
+  assert.match(await page.locator('.slide.is-active').textContent(), /weekly budget/);
 
   const overflow = [];
-  for (let number = 1; number <= 20; number++) {
-    await page.evaluate(n => { location.hash = `slide=${n}&step=99`; }, number);
+  for (let number = 1; number <= 19; number++) {
+    await page.evaluate(n => { location.hash = `slide=${n}`; }, number);
     await page.waitForFunction(n => document.querySelector('.slide.is-active').getAttribute('aria-label').startsWith(`${n}. `), number);
-    const current = await state();
-    assert.equal(current.step, current.steps);
     assert(await page.locator('.slide.is-active').evaluate(el => !el.inert));
+    assert(await page.locator('.slide.is-active').evaluate(slide => [...slide.querySelectorAll('.shape')].every(shape => {
+      const style = getComputedStyle(shape);
+      return style.visibility !== 'hidden' && style.display !== 'none' && style.opacity === '1';
+    })), `Slide ${number} contains initially hidden content`);
     const offslide = await page.locator('.slide.is-active').evaluate(slide => {
       const bounds = slide.getBoundingClientRect();
       return [...slide.querySelectorAll('.text-shape span')].flatMap(span => {
@@ -93,7 +123,7 @@ let browser;
   assert.deepEqual(overflow, [], 'Slide text crosses the visible presentation boundary');
   assert(requests.every(url => !/^https?:/.test(url)), 'Presentation depends on an internet resource');
   assert.deepEqual(errors, []);
-  const thumbnails = await Promise.all(Array.from({ length: 20 }, async (_, index) => ({
+  const thumbnails = await Promise.all(Array.from({ length: 19 }, async (_, index) => ({
     input: await sharp(`out/html-slide-${String(index + 1).padStart(2, '0')}.png`).resize(512, 314).png().toBuffer(),
     left: 16 + (index % 3) * 528,
     top: 16 + Math.floor(index / 3) * 330,
@@ -109,8 +139,8 @@ let browser;
   });
   assert(mobile.left >= -1 && mobile.right <= 376 && mobile.bottom <= mobile.controlsTop + 1);
   await page.emulateMedia({ media: 'print' });
-  assert.equal(await page.locator('.slide:visible').count(), 20);
-  assert(await page.locator('.reveal').first().evaluate(el => getComputedStyle(el).opacity === '1'));
-  console.log('PASS: 20 slides, reveals, reverse navigation, hash restore, overview, notes, reduced motion, offline assets, mobile fit and print visibility.');
+  assert.equal(await page.locator('.slide:visible').count(), 19);
+  assert(await page.locator('.slide').first().evaluate(el => getComputedStyle(el).opacity === '1'));
+  console.log('PASS: 19 slides, one automatic fade per slide, direct keyboard/click navigation, reverse navigation, old/new hash restore, overview, notes, demo checks, GitHub link, reduced motion, offline assets, mobile fit and print visibility.');
   await browser.close();
 })().catch(async error => { console.error(error); await browser?.close(); process.exitCode = 1; });

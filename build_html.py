@@ -11,30 +11,6 @@ from build_slides import ASSETS, OUT, prs
 ROOT = Path(__file__).resolve().parent
 PIXELS_PER_EMU = 96 / 914400
 
-# Each list is one teaching beat. Shapes within a beat appear together.
-REVEALS = {
-    1: [[6]],
-    2: [[5, 7, 9], [6, 8, 10], list(range(11, 17))],
-    3: [[5, 6, 7], [8, 9, 10], [11, 12, 13]],
-    4: [[5, 6], [7, 8], [9]],
-    5: [[5], [6, 7, 8], [9, 10]],
-    6: [list(range(5, 11)), list(range(11, 17)) + [23], list(range(17, 23)) + [24]],
-    7: [[5, 6, 7], [8, 9, 10], [11, 12, 13], [14, 15, 16], [17, 18, 19]],
-    8: [list(range(5, 14)), list(range(14, 24))],
-    9: [[5, 6, 7], [8, 9, 10], [11, 12, 13], [14, 15, 16], [17, 18, 19, 20, 21]],
-    10: [[5, 6], [7, 8], [9, 10], [11, 12, 13]],
-    11: [list(range(5, 14)), list(range(14, 22))],
-    12: [[5]],
-    13: [[5, 6, 7], [8, 9, 10], [11, 12, 13, 14, 15]],
-    14: [[5, 6], [7, 8], [9, 10], [11, 12]],
-    15: [[5, 6]],
-    16: [[5, 6, 7], [8, 9], [10, 11], [12, 13, 14, 15]],
-    17: [[5, 6], [7, 8], [9, 10], [11, 12, 13, 14]],
-    18: [[5, 6, 7], [8, 9, 10]],
-    19: [[5, 6, 7], [8, 9, 10]],
-    20: [[5]],
-}
-
 assets = {}
 
 
@@ -84,7 +60,7 @@ def paragraph_html(paragraph):
 
 
 def picture_asset(shape, slide_number, position):
-    if slide_number == 2 and position == 15:
+    if shape.name == 'DragonFly logo':
         blob = (ASSETS / 'v10' / 'dragonfly-mark-soft-black.svg').read_bytes()
         mime = 'image/svg+xml'
     else:
@@ -94,30 +70,32 @@ def picture_asset(shape, slide_number, position):
     return key
 
 
-def shape_html(shape, slide_number, position, step):
+def shape_html(shape, slide_number, position):
     classes = ['shape']
     attrs = []
     if position == (5 if slide_number == 1 else 4):
         classes.append('heading')
-    if step:
-        classes.append('reveal')
-        attrs.append(f'data-step="{step}"')
-        attrs.append('aria-hidden="true" inert')
     coords = [f'{name}:{getattr(shape, attr) * PIXELS_PER_EMU:.3f}px'
               for name, attr in [('left', 'left'), ('top', 'top'), ('width', 'width'), ('height', 'height')]]
     style = ';'.join(coords)
     content = ''
     if hasattr(shape, 'image'):
         classes.extend(['graphic-shape', picture_asset(shape, slide_number, position)])
+        left, right = shape.crop_left, shape.crop_right
+        top, bottom = shape.crop_top, shape.crop_bottom
+        if any((left, right, top, bottom)):
+            # Render the native picture crop without altering the source image.
+            style += (f';background-size:{100/(1-left-right):.4f}% {100/(1-top-bottom):.4f}%'
+                      f';background-position:{100*left/(left+right) if left+right else 50:.4f}% '
+                      f'{100*top/(top+bottom) if top+bottom else 50:.4f}%')
         if position == 1:
             attrs.append('aria-hidden="true"')
         else:
             labels = {(2, 5): 'Amit Vijapur', (2, 6): 'Jason Cheng',
-                      (2, 12): 'Durham University logo', (2, 13): 'OpenAI logo',
-                      (2, 15): 'DragonFly logo',
-                      (19, 6): 'Amit LinkedIn QR code', (19, 9): 'Jason LinkedIn QR code'}
+                      (18, 6): 'Amit LinkedIn QR code', (18, 9): 'Jason LinkedIn QR code'}
             attrs.append('role="img"')
-            attrs.append(f'aria-label="{esc(labels.get((slide_number, position), "Tool logo"))}"')
+            label = shape.name if shape.name in ('Durham crest', 'OpenAI logo', 'DragonFly logo') else labels.get((slide_number, position), 'Tool logo')
+            attrs.append(f'aria-label="{esc(label)}"')
         url = shape.click_action.hyperlink.address
         if url:
             content = f'<a class="image-link" aria-label="Open LinkedIn profile" href="{esc(url)}" target="_blank" rel="noopener"></a>'
@@ -142,19 +120,14 @@ def shape_html(shape, slide_number, position, step):
 
 def build():
     sections = []
-    assert len(prs.slides) == len(REVEALS)
     for number, slide in enumerate(prs.slides, 1):
-        groups = REVEALS[number]
-        steps = {pos: step for step, batch in enumerate(groups, 1) for pos in batch}
-        assert sum(map(len, groups)) == len(steps), f'Duplicate reveal target, slide {number}'
-        assert all(4 <= pos <= len(slide.shapes) for pos in steps)
         title = slide.shapes[4 if number == 1 else 3].text.replace('\n', ' ')
         note = slide.notes_slide.notes_text_frame.text
-        pieces = [shape_html(shape, number, pos, steps.get(pos, 0))
+        pieces = [shape_html(shape, number, pos)
                   for pos, shape in enumerate(slide.shapes, 1)]
         sections.append(f'<section class="slide" aria-label="{number}. {esc(title)}" '
                         f'data-title="{esc(title)}" data-notes="{esc(note)}" '
-                        f'data-steps="{len(groups)}" aria-hidden="true" inert>'
+                        f'aria-hidden="true" inert>'
                         + ''.join(pieces) + '</section>')
     asset_css = '\n'.join(f'.{key}{{background-image:url("{uri}")}}' for key, uri in assets.items())
     template = (ROOT / 'web' / 'shell.html').read_text()
@@ -163,7 +136,7 @@ def build():
               .replace('/* DECK_JS */', (ROOT / 'web' / 'deck.js').read_text()))
     target = OUT / 'vibe-coding-workshop.html'
     target.write_text(result)
-    print(f'{target}\n{len(prs.slides)} slides, {sum(map(len, REVEALS.values()))} teaching reveals, offline assets.')
+    print(f'{target}\n{len(prs.slides)} slides; one automatic fade per slide; offline assets.')
 
 
 if __name__ == '__main__':

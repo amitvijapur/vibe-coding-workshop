@@ -2,7 +2,9 @@
 
 ## Current HTML presentation, 1 October 2026
 
-The actual presentation is now one current HTML deck at `out/vibe-coding-workshop.html`, edited in place. It preserves the 20-slide visual direction, adds browser reveals, navigation, overview and presenter notes, and includes Durham University, OpenAI and DragonFly logos on About Us. The demo prompt is scoped to a small localhost prototype designed for a 10 to 15 minute build. PowerPoint export is deferred until the HTML deck has been reviewed.
+The actual presentation is one current HTML deck at `out/vibe-coding-workshop.html`, edited in place. It now has 19 slides, with one automatic fade on each slide and one click advancing to the next. Feedback and iteration share one teaching slide, followed by a worked rental-filter example. Host logos have consistent visible heights; Durham uses its crest alone and the divider is removed. Thank You links to the workshop repository. Result checks match the rental filters, shortlist, two explained flatmate suggestions and explicit 390 × 844 phone viewport in the demo prompt. PowerPoint export remains deferred until the HTML deck has been reviewed.
+
+The first HTML draft had 20 slides and 56 grouped reveals. Those separate reveal clicks were removed following Amit's review.
 
 Version 9 updates Amit's host credential from AWS SBGL to OpenAI Campus Ambassador in the visible slide and presenter notes. All other workshop content remains unchanged from version 8.
 

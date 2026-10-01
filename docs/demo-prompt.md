@@ -8,7 +8,7 @@ A localhost-only prototype that helps Durham students shortlist a fictional rent
 
 Hey, I want to make a small app that helps Durham students find somewhere to rent and people to live with. Looking across lots of rental websites is frustrating, so I want to show how listings from different places could sit in one simple product.
 
-Please build a polished single-page prototype using plain HTML, CSS and JavaScript. Run it only on localhost. Make it feel welcoming and trustworthy, and make sure it works on a phone.
+Please build a polished single-page prototype using plain HTML, CSS and JavaScript. Run it only on localhost. Make it feel welcoming and trustworthy, and make sure it works on a phone-sized screen at 390 × 844 pixels.
 
 Use six clearly labelled fictional Durham properties. Let me choose a maximum weekly rent and an area, then show the matching properties. Each card should include a photo placeholder, weekly rent, bedrooms, area, whether bills are included and a fictional source name. Let me shortlist one property.
 
@@ -22,7 +22,7 @@ Please check that:
 - changing the rent and area filters changes the visible properties;
 - I can shortlist one property;
 - the flatmate suggestions reflect the two preferences I choose; and
-- the full journey is usable on a phone-sized screen.
+- the full journey is usable at a 390 × 844 phone-sized viewport.
 
 When it works, tell me the local URL and give me a short summary of what you checked.
 
@@ -45,7 +45,7 @@ Anything beyond that journey is out of scope for the workshop demo.
 | Design | Welcoming, trustworthy and mobile-friendly. |
 | Behaviour | Filter listings, shortlist one property and generate two explained flatmate suggestions. |
 | Constraints | One static page on localhost, hard-coded fictional data and no integrations or user accounts. |
-| Verify | Open locally, test both filters, shortlist one property, test matching and check a phone-sized layout. |
+| Verify | Open locally, test both filters, shortlist one property, test matching and repeat the journey at 390 × 844. |
 
 ## Live demonstration path
 
