@@ -21,21 +21,17 @@ secrets*.json
 .aws/
 .ssh/
 
-# Generated output: publish only the current reviewed deck and contact sheet.
+# Generated output: publish only the two current presentation files.
 /out/*
-!/out/vibe-coding-workshop-draft-v8.pptx
-!/out/vibe-coding-workshop-draft-v8.pdf
-!/out/v8-contact-sheet.jpg
-!/out/vibe-coding-workshop-draft-v9.pptx
-!/out/vibe-coding-workshop-draft-v9.pdf
-!/out/v9-contact-sheet.jpg
 !/out/vibe-coding-workshop.html
-!/out/html-overview.png
+!/out/vibe-coding-workshop.pptx
 
-# Machine-specific font configuration and download/extraction leftovers.
+# Generated gradient backgrounds and machine-specific font configuration.
+/assets/*.jpg
 /assets/fonts.conf
-/assets/v5/*.ico
-/assets/v5/extract_portraits.py
+
+# Download and extraction leftovers from the original asset collection.
+/assets/v[0-9]*/
 
 # Editor scratch and Office lock files.
 *.swp

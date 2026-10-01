@@ -1,4 +1,4 @@
-"""Build the editable workshop draft and its softly textured backgrounds."""
+"""Build the editable workshop presentation and its softly textured backgrounds."""
 from pathlib import Path
 import numpy as np
 from PIL import Image, ImageDraw
@@ -22,7 +22,7 @@ PAPER = 'F2F1EC'
 prs = Presentation()
 prs.slide_width, prs.slide_height = Inches(W), Inches(H)
 prs.core_properties.title = 'Vibe coding | Amit + Jason'
-prs.core_properties.subject = 'Workshop review draft'
+prs.core_properties.subject = 'Beginner vibe coding workshop'
 prs.core_properties.author = 'Amit + Jason'
 
 def gradient(name, base, spots, strength=1):
@@ -86,7 +86,7 @@ def slide(label, background='paper', note=''):
 def title(s, text, y=1.15, size=49, w=12.0):
     textbox(s, text, .65, .8, w, 1.65, 54, weight='Medium', spacing=1.0)
 
-s = slide('Workshop draft · version 10', 'paper', 'Welcome. Today is for complete beginners. Introduce this as a chance to build one small working thing with AI. Confirm the official event name before adding it. The live demonstration is a tightly scoped Durham rental and flatmate prototype that runs only on localhost.')
+s = slide('Vibe coding workshop', 'paper', 'Welcome. Today is for complete beginners. Introduce this as a chance to build one small working thing with AI. Confirm the official event name before adding it. The live demonstration is a tightly scoped Durham rental and flatmate prototype that runs only on localhost.')
 textbox(s, 'FROM IDEA TO FIRST PROTOTYPE', .63, 1.7, 8, .35, 13)
 textbox(s, 'Vibe\ncoding.', .50, 2.47, 12.1, 3.7, 112, weight='Medium', spacing=.90)
 textbox(s, 'A workshop with Amit + Jason', .63, 6.59, 9, .4, 20)
@@ -94,7 +94,7 @@ textbox(s, 'A workshop with Amit + Jason', .63, 6.59, 9, .4, 20)
 s = slide('Your hosts', 'warm', 'Amit Vijapur: CTO at DragonFly, Computer Science at Durham and OpenAI Campus Ambassador. The OpenAI role was confirmed directly by Amit on 30 September 2026. Jason Cheng: CEO at DragonFly, Economics at Durham and Entrepreneur Society President. Introduce yourselves briefly.')
 title(s, 'About us', 1.08, 53)
 for x,filename in [(.40,'amit-cutout.png'),(6.77,'jason-cutout.png')]:
-    s.shapes.add_picture(str(ASSETS/'v6'/filename),Inches(x),Inches(2.75),width=Inches(2.70))
+    s.shapes.add_picture(str(ASSETS/'portraits'/filename),Inches(x),Inches(2.75),width=Inches(2.70))
 textbox(s, 'Amit Vijapur', 3.10, 2.6, 3.47, .8, 31, weight='Medium')
 textbox(s, 'Jason Cheng', 9.47, 2.6, 3.24, .8, 31, weight='Medium')
 textbox(s, 'CTO, DragonFly\nComputer Science, Durham\nOpenAI Campus\nAmbassador', 3.10, 3.65, 3.47, 2.3, 21, spacing=1.25)
@@ -102,17 +102,17 @@ textbox(s, 'CEO, DragonFly\nEconomics, Durham\nEntrepreneur Society\nPresident',
 def host_logo(kind, x):
     height = 1.0
     if kind == 'Durham crest':
-        pic = s.shapes.add_picture(str(ASSETS/'v10'/'durham-university.png'),
+        pic = s.shapes.add_picture(str(ASSETS/'brand'/'durham-university.png'),
                                   Inches(x), Inches(6.25), width=Inches(height*857/972), height=Inches(height))
         pic.crop_left = 0
         pic.crop_top = 3/1413
         pic.crop_right = (3230-857)/3230
         pic.crop_bottom = (1413-975)/1413
     elif kind == 'OpenAI logo':
-        pic = s.shapes.add_picture(str(ASSETS/'v5'/'openai.png'),
+        pic = s.shapes.add_picture(str(ASSETS/'tool-logos'/'openai.png'),
                                   Inches(x), Inches(6.25), width=Inches(height), height=Inches(height))
     else:
-        pic = s.shapes.add_picture(str(ASSETS/'v10'/'dragonfly-mark-soft-black.png'),
+        pic = s.shapes.add_picture(str(ASSETS/'brand'/'dragonfly-mark-soft-black.png'),
                                   Inches(x), Inches(6.25), width=Inches(height*661/545), height=Inches(height))
         pic.crop_left = 49/760
         pic.crop_right = 50/760
@@ -177,7 +177,7 @@ for x,products,description,tint in columns:
     mini_rect(x,2.45,3.51,.055,tint)
     for j,(name,logo) in enumerate(products):
         y=2.97+j*1.23
-        s.shapes.add_picture(str(ASSETS/'v5'/logo),Inches(x),Inches(y),Inches(.64),Inches(.64))
+        s.shapes.add_picture(str(ASSETS/'tool-logos'/logo),Inches(x),Inches(y),Inches(.64),Inches(.64))
         textbox(s,name,x+.86,y+.06,2.7,.59,26,weight='Medium')
     textbox(s,description,x,5.40,3.53,1.33,21,spacing=1.13)
 textbox(s,'Codex is today’s demo.',4.91,6.68,4.0,.30,12,MUTED)
@@ -368,14 +368,14 @@ for x,name,handle in [(.65,'Amit Vijapur','amitvijapur'),(7.10,'Jason Cheng','ja
         for col in range(count):
             if qr.isDark(row,col):
                 draw.rectangle(((col+4)*scale,(row+4)*scale,(col+5)*scale-1,(row+5)*scale-1),fill='black')
-    qpath=OUT/f'v6-qr-{handle}.png'
+    qpath=OUT/f'qr-{handle}.png'
     qim.save(qpath)
     pic=s.shapes.add_picture(str(qpath),Inches(x),Inches(3.54),width=Inches(2.25))
     pic.click_action.hyperlink.address=url
     link=textbox(s,f'linkedin.com/in/{handle}',x,6.08,5.48,.62,22)
     link.text_frame.paragraphs[0].runs[0].hyperlink.address=url
 
-s = slide('Thank you', 'warm', 'Thank everyone for participating. Encourage them to save their working version. The clickable repository link is https://github.com/amitvijapur/vibe-coding-workshop . Once the repository is made public, participants can download the current HTML presentation and demo prompt there.')
+s = slide('Thank you', 'warm', 'Thank everyone for participating. Encourage them to save their working version. The clickable repository link is https://github.com/amitvijapur/vibe-coding-workshop . Participants can download the HTML and PowerPoint slides and the demo prompt there.')
 title(s,'Thank you')
 textbox(s,'Get the slides + demo prompt',.65,4.70,12,.65,28,weight='Medium')
 repo_link=textbox(s,'github.com/amitvijapur/vibe-coding-workshop',.65,5.48,12,.55,23)

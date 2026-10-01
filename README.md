@@ -1,52 +1,37 @@
 # Vibe Coding Workshop
 
-A beginner workshop by Amit Vijapur and Jason Cheng. Learn to describe a product, build with AI, inspect the result and improve it through useful feedback.
+A beginner-friendly workshop by Amit Vijapur and Jason Cheng. Participants watch a venture idea become a working prototype, learn how to prompt and give feedback, then build a project of their own.
 
-## Current presentation
+## Get the presentation
 
-- [Open the HTML presentation](out/vibe-coding-workshop.html)
-- [Review the demo prompt](docs/demo-prompt.md)
+- [Present or download the HTML slides](out/vibe-coding-workshop.html)
+- [Download the PowerPoint slides](out/vibe-coding-workshop.pptx)
+- [Use the Durham housing demo prompt](docs/demo-prompt.md)
 
-19 slides with presenter notes and one automatic fade per slide. All content appears together, and each click advances to the next slide. This is the single working deck, updated in place. Open the HTML file in a browser. It includes the photos and logos and works offline. PowerPoint export will be refreshed after the HTML presentation is reviewed. Amit's role is OpenAI Campus Ambassador, and the About Us slide includes one shared row of larger Durham, OpenAI and DragonFly marks.
-
-Use Space or the right arrow to advance one slide. Left arrow goes back. O opens the slide list, N opens presenter notes and F enters fullscreen. The presentation honours reduced-motion settings. General Sans should be installed locally for the intended typography.
+The deck has 19 slides. The HTML version is the animated presentation: it works offline, includes the images and logos, and advances one whole slide per click. The PowerPoint version is a static export with editable text and shapes. In the HTML deck, use **Space** or **→** to advance, **←** to go back, **O** for the slide overview, **N** for presenter notes and **F** for fullscreen. General Sans Regular and Medium should be installed locally for the intended typography; the font files are not included.
 
 ## Workshop flow
 
-Introduce the hosts and vibe coding. Launch the live Codex build and teach while it runs. Explain prompting and iteration, then inspect the demo and improve it. Take questions for 5–10 minutes before participants build a venture prototype for 30–45 minutes. Recap, connect and close.
+1. Meet the hosts and learn what vibe coding means.
+2. Start a live Codex build while learning a five-part prompt: **Purpose, Design, Behaviour, Constraints, Verify**.
+3. Review the result and practise the iteration loop: **Check, Describe, Change, Recheck, Save**. A useful feedback message says what happened, what was expected, what to keep and how to check the fix.
+4. Take 5–10 minutes of questions, then give participants 30–45 minutes to build their own project.
 
-The prompting framework is **Purpose, Design, Behaviour, Constraints, Verify**. The iteration loop is **Check, Describe, Change, Recheck, Save**. Useful feedback describes what happened, what was expected, what to keep and how to check.
+The live demo is a Durham student housing prototype. It uses six fictional rentals and two fictional flatmate suggestions, runs on localhost, and is scoped for a 10–15 minute build. The [complete prompt](docs/demo-prompt.md) contains the brief and its limits. No live rental feeds or personal data are required.
 
-## Demo
+## Build or change the slides
 
-The demo is scoped for a 10 to 15 minute build of a single page on localhost. Filter six fictional rentals, shortlist one property, choose two living preferences and see two explained flatmate suggestions. The prompt excludes accounts, databases, scraping, external APIs, maps, messaging, payments and deployment. The club-event chats remain small teaching examples.
+See [SETUP.md](SETUP.md) for dependencies and export commands. The content and slide layouts live in `build_slides.py`; `build_html.py` produces the HTML deck, and `web/` contains its player and styling. The generated files in `out/` are the two presentation downloads above. Edit the source files and regenerate both formats to keep them aligned. If you change the generated HTML directly, rebuilding it will replace those edits.
 
-The complete conversational prompt, framework mapping and live demonstration path are in [docs/demo-prompt.md](docs/demo-prompt.md).
+## Credits and reuse
 
-## Build and edit
+Teaching ideas are adapted from [Chai Pin Zheng's workshop](https://github.com/Ducksss/vibe-coding-workshop), reviewed at commit `c896843a832bf0c6b4bdfa0714b763ce082a6c84`. The five-part brief comes from that workshop; our beginner feedback loop and live demo are adaptations. The visual direction references the opening slides of [Orange by Marmalade 2025](https://www.deck.gallery/orange-by-marmalade-2025/); the layouts here were created for this workshop.
 
-See [SETUP.md](SETUP.md) for installation, building and PDF export.
+Asset sources are recorded in the [tool-mark provenance](assets/tool-logos/PROVENANCE.md), [portrait provenance](assets/portraits/PROVENANCE.md) and [host-mark provenance](assets/brand/PROVENANCE.md). Portrait cutouts are edited derivatives of photos supplied for the workshop. Brand marks belong to their owners and do not imply endorsement. General Sans is not redistributed.
 
-- `build_slides.py`: shared editable content and radial backgrounds.
-- `build_html.py`: the current HTML presentation builder.
-- `web/`: browser presentation controls, styling and HTML shell.
-- `render_review.py`: PDF previews and structural checks.
-- `assets/`: photos, tool marks and provenance.
-- `out/`: current HTML presentation and historical PowerPoint/PDF exports.
-
-Install General Sans locally to preserve the intended layout. Fonts are not redistributed. Edit the shared content or web player, rebuild with `python build_html.py`, and review the current HTML file. Direct PowerPoint edits are not automatically imported into the builder.
-
-## Sources and rights
-
-Teaching concepts are adapted from [Chai Pin Zheng / Ducksss](https://github.com/Ducksss/vibe-coding-workshop), reviewed at commit `c896843a832bf0c6b4bdfa0714b763ce082a6c84`. The five-part brief comes from that workshop; the beginner feedback loop is our adaptation.
-
-Visual direction references [Orange by Marmalade 2025](https://www.deck.gallery/orange-by-marmalade-2025/), with original editable layouts. The Karpathy quotation is sourced in presenter notes. See [v5 asset provenance](assets/v5/PROVENANCE.md), [v6 asset provenance](assets/v6/PROVENANCE.md) and [host logo provenance](assets/v10/PROVENANCE.md). Portrait cutouts are AI-edited derivatives of supplied photos. Brand marks belong to their owners and do not imply endorsement.
-
-This is a private collaboration repository. No blanket open-source license is applied because third-party material, portraits, logos and fonts have separate rights. Confirm permission before public redistribution.
+This repository does not include a blanket reuse licence. Public access to the files does not grant rights to third-party content, portraits, logos or fonts. Check the relevant rights before redistributing or adapting those materials.
 
 ## Presenters
 
 - [Amit Vijapur](https://www.linkedin.com/in/amitvijapur/)
 - [Jason Cheng](https://www.linkedin.com/in/jasoncty/)
-
-Before presenting, confirm tool access, timing, speaking roles and a saved live-demo fallback.

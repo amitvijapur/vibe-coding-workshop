@@ -8,7 +8,7 @@ from pptx import Presentation
 
 ROOT=Path(__file__).resolve().parent
 OUT=ROOT/'out'
-stem = sys.argv[1] if len(sys.argv) > 1 else 'vibe-coding-workshop-draft-v6'
+stem = sys.argv[1] if len(sys.argv) > 1 else 'vibe-coding-workshop'
 version = stem.rsplit('-',1)[-1]
 prefix = version+'-' if version.startswith('v') and version[1:].isdigit() else ''
 pdf=pdfium.PdfDocument(OUT/f'{stem}.pdf')

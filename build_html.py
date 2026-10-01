@@ -61,7 +61,7 @@ def paragraph_html(paragraph):
 
 def picture_asset(shape, slide_number, position):
     if shape.name == 'DragonFly logo':
-        blob = (ASSETS / 'v10' / 'dragonfly-mark-soft-black.svg').read_bytes()
+        blob = (ASSETS / 'brand' / 'dragonfly-mark-soft-black.svg').read_bytes()
         mime = 'image/svg+xml'
     else:
         blob, mime = shape.image.blob, shape.image.content_type

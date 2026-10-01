@@ -1,10 +1,8 @@
-# Build the workshop presentation
+# Build and present the workshop deck
 
-Run these commands from the repository root. Python 3.11 or later is required by the pinned dependencies; the reviewed build used Python 3.12.14. The build uses ordinary Python packages and does not require an API key.
+Run these commands from the repository root. Use Python 3.11 or later; the reviewed build used Python 3.12.14. No API key is needed.
 
 ## Install
-
-Create a virtual environment and install the packages used by the reviewed build:
 
 ```sh
 python3 -m venv .venv
@@ -12,52 +10,43 @@ source .venv/bin/activate
 python -m pip install -r requirements.txt
 ```
 
-On Windows, activate the environment with `.venv\Scripts\Activate.ps1` in PowerShell instead of the `source` command.
+On Windows, activate the environment with `.venv\Scripts\Activate.ps1` in PowerShell.
 
-Install **General Sans Regular and Medium** locally before viewing or exporting. Font files are not bundled. Obtain the font from its official distributor and follow its licence. Without those fonts, PowerPoint or LibreOffice may substitute a different face and change the layout.
+Install General Sans Regular and Medium locally from its official distributor and follow its licence. The repository does not bundle font files. Without them, browsers and PowerPoint may substitute another font and alter line wrapping.
 
-Install LibreOffice separately to export a PDF. Its `soffice` executable must be available on your command path. On macOS, the executable may be at `/Applications/LibreOffice.app/Contents/MacOS/soffice`; use that full path if needed.
-
-## Build and export
-
-The current presentation is HTML. Rebuild that single file with:
+## Generate the presentations
 
 ```sh
 python build_html.py
+python build_slides.py
 ```
 
-Open `out/vibe-coding-workshop.html` in a browser. Assets, styles and navigation are embedded, so a web server and internet connection are unnecessary. The HTML deck uses General Sans through locally installed fonts. Space/right arrow advances one whole slide, left arrow goes back, O opens an overview, N shows presenter notes and F toggles fullscreen. Each slide has one automatic fade and all its content is visible together.
+These commands update `out/vibe-coding-workshop.html` and `out/vibe-coding-workshop.pptx`. Both use the shared slide content in `build_slides.py`. Run both after changing slide copy or layouts so the downloads stay aligned. Changes made directly to a generated file will be overwritten on the next build.
 
-The shared content remains in `build_slides.py`. Importing it builds the content model without exporting a PowerPoint file. The PowerPoint export is deferred until the HTML deck is reviewed.
+Open the HTML file in a browser to present it. It contains its images, styles and navigation, so a web server and internet connection are unnecessary. Space or the right arrow advances one slide; the left arrow goes back. Press O for the overview, N for notes and F for fullscreen. The HTML deck has one automatic fade per slide, with all of that slide's content visible at once.
 
-For a later static PowerPoint/PDF export:
+The PowerPoint is a static export with editable text and shapes. Check the layout on the computer used for presenting, especially if fonts differ.
+
+## Optional PDF review
+
+Install LibreOffice separately and make `soffice` available on your command path. On macOS, you may need `/Applications/LibreOffice.app/Contents/MacOS/soffice` instead.
 
 ```sh
-python build_slides.py
 soffice --headless --convert-to pdf --outdir out out/vibe-coding-workshop.pptx
 python render_review.py vibe-coding-workshop
 ```
 
-The optional static build produces `out/vibe-coding-workshop.pptx`, regenerates the four gradient backgrounds and creates contact QR images. LibreOffice creates the matching PDF. Pass the stem explicitly to the renderer.
+The PDF and contact sheet are local review outputs, not additional published presentation versions. `render_review.py` checks slide and page counts, presenter notes and slide bounds. Visually inspect the result before distributing a new build. If LibreOffice cannot see General Sans, fix the font installation or local fontconfig setup. The development `assets/fonts.conf` uses machine-specific paths and is intentionally ignored by Git.
 
-The renderer verifies matching slide/page counts, presenter notes and slide bounds, and reports the fonts embedded in the PDF. Visually inspect the contact sheet and changed slides before publishing. The expected text fonts are General Sans Regular and Medium; a symbol fallback can appear for the small arrow in the illustrative chat composer.
+## Source layout
 
-If LibreOffice cannot see installed fonts, use a fontconfig configuration appropriate to your machine or fix the system font installation. The original development `assets/fonts.conf` contains local macOS paths and is intentionally ignored by Git. Do not copy those absolute paths into a fresh environment. A normal LibreOffice installation should use your installed fonts without that override.
+- `build_slides.py` defines the slide content and generates the PowerPoint.
+- `build_html.py` turns that content into the self-contained HTML presentation.
+- `web/` contains the browser shell, styles and navigation.
+- `docs/demo-prompt.md` contains the live-build prompt and teaching notes.
+- `assets/tool-logos/`, `assets/portraits/` and `assets/brand/` contain the source marks, photos, cutouts and provenance needed for the build.
+- `out/` publishes only the current HTML and PowerPoint files. Other generated previews are ignored.
 
-## Source assets
+Keep the provenance files with the assets. Brand marks and portraits have separate rights; the repository does not grant a new licence to them or to General Sans.
 
-The builder needs these files:
-
-- `assets/v5/openai.png`, `claude.png`, `cursor.png` and `lovable.png`.
-- `assets/v6/amit-cutout.png` and `jason-cutout.png`.
-- `assets/v10/durham-university.png`, `dragonfly-mark-soft-black.svg` and its PNG derivative. Asset provenance is in `assets/v10/PROVENANCE.md`.
-
-Retain `assets/v5/PROVENANCE.md` and `assets/v6/PROVENANCE.md`. The original founder portraits in `assets/v5/amit.png` and `jason.png` are useful provenance sources, although the current build uses their transparent derivatives. The four gradient JPEGs can be regenerated by the script.
-
-The tool marks belong to their respective owners. Portraits and their derivatives should be reused only with the hosts' permission. This repository does not grant a new licence to those assets or to the separately installed font.
-
-## Updating the current presentation
-
-Edit the shared content in `build_slides.py`, the HTML rendering in `build_html.py`, or the browser controls in `web/`. Run `python build_html.py` to update the same `out/vibe-coding-workshop.html` file. Keep revisions in Git history. The reviewed V8 and V9 PowerPoint/PDF exports remain historical snapshots until the final export is requested.
-
-Optional browser verification uses Node.js with `playwright` and `sharp`, and an installed Chrome browser. Run `node check_html.cjs` with those packages available. It exercises the presenter controls and captures slide images plus `out/html-overview.png`.
+Optional browser verification uses Node.js, Playwright, Sharp and an installed Chrome browser. Run `node check_html.cjs` after making changes to the HTML player. It tests navigation and captures a local contact sheet.
