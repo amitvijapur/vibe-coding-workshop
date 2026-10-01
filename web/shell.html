@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A beginner vibe coding workshop with Amit Vijapur and Jason Cheng.">
+  <title>Vibe coding workshop · Amit + Jason</title>
+  <style>/* DECK_CSS */</style>
+</head>
+<body>
+  <main id="viewport" aria-label="Workshop presentation">
+    <div id="canvas"><!-- DECK --></div>
+  </main>
+  <div id="progress" role="progressbar" aria-label="Presentation progress" aria-valuemin="1" aria-valuemax="20"></div>
+  <nav id="toolbar" aria-label="Presentation controls">
+    <div class="toolbar-group">
+      <button id="prev" aria-label="Previous reveal or slide" title="Previous (left arrow)">←</button>
+      <span id="counter">01 / 20</span>
+      <button id="next" aria-label="Next reveal or slide" title="Next (space or right arrow)">→</button>
+      <span id="reveal-count"></span>
+    </div>
+    <div class="toolbar-group">
+      <button id="show-all" title="Show all content on this slide (A)">Show all</button>
+      <button id="overview-toggle" aria-expanded="false" aria-controls="overview" title="Slide overview (O)">Slides</button>
+      <button id="notes-toggle" aria-expanded="false" aria-controls="notes" title="Presenter notes (N)">Notes</button>
+      <button id="fullscreen" title="Fullscreen (F)">Fullscreen</button>
+    </div>
+  </nav>
+  <aside id="overview" aria-label="Choose a slide" hidden></aside>
+  <aside id="notes" aria-label="Presenter notes" hidden></aside>
+  <div id="announcer" class="sr-only" aria-live="polite"></div>
+  <script>/* DECK_JS */</script>
+</body>
+</html>

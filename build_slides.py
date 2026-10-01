@@ -86,7 +86,7 @@ def slide(label, background='paper', note=''):
 def title(s, text, y=1.15, size=49, w=12.0):
     textbox(s, text, .65, .8, w, 1.65, 54, weight='Medium', spacing=1.0)
 
-s = slide('Workshop draft · version 9', 'paper', 'Welcome. Today is for complete beginners. Introduce this as a chance to build one small working thing with AI. Confirm the official event name before adding it. The demonstration venture and its final prompt are still to be chosen by Amit and Jason.')
+s = slide('Workshop draft · version 10', 'paper', 'Welcome. Today is for complete beginners. Introduce this as a chance to build one small working thing with AI. Confirm the official event name before adding it. The live demonstration is a tightly scoped Durham rental and flatmate prototype that runs only on localhost.')
 textbox(s, 'FROM IDEA TO FIRST PROTOTYPE', .63, 1.7, 8, .35, 13)
 textbox(s, 'Vibe\ncoding.', .50, 2.47, 12.1, 3.7, 112, weight='Medium', spacing=.90)
 textbox(s, 'A workshop with Amit + Jason', .63, 6.59, 9, .4, 20)
@@ -99,6 +99,12 @@ textbox(s, 'Amit Vijapur', 3.10, 2.6, 3.47, .8, 31, weight='Medium')
 textbox(s, 'Jason Cheng', 9.47, 2.6, 3.24, .8, 31, weight='Medium')
 textbox(s, 'CTO, DragonFly\nComputer Science, Durham\nOpenAI Campus\nAmbassador', 3.10, 3.65, 3.47, 2.3, 21, spacing=1.25)
 textbox(s, 'CEO, DragonFly\nEconomics, Durham\nEntrepreneur Society\nPresident', 9.47, 3.65, 3.24, 2.3, 22, spacing=1.25)
+line(s,.65,6.23,12.0,'A986A6')
+s.shapes.add_picture(str(ASSETS/'v10'/'durham-university.png'),Inches(.70),Inches(6.43),width=Inches(2.05))
+s.shapes.add_picture(str(ASSETS/'v5'/'openai.png'),Inches(5.45),Inches(6.39),width=Inches(.48),height=Inches(.48))
+textbox(s, 'OpenAI', 6.05, 6.43, 1.55, .35, 17, weight='Medium')
+s.shapes.add_picture(str(ASSETS/'v10'/'dragonfly-mark-soft-black.png'),Inches(9.48),Inches(6.35),width=Inches(.55),height=Inches(.47))
+textbox(s, 'DragonFly', 10.14, 6.43, 1.9, .35, 17, weight='Medium')
 
 s = slide('Today’s plan', 'sun', 'Set expectations without inventing a total session length. First we run a live demonstration while teaching two frameworks: a useful prompt and a feedback loop. Next allow 5–10 minutes for questions, then everyone builds a small project for 30–45 minutes. Agree the exact duration and speaking split before the workshop. The demonstration and explanation timings remain flexible.')
 title(s, 'Workshop plan', 1.07, 56)
@@ -120,13 +126,14 @@ textbox(s, 'Andrej Karpathy, AI researcher and former Tesla AI lead.\nHe named i
 textbox(s, 'You still need to check what it builds.', .65, 6.78, 12, .43, 21)
 s.notes_slide.notes_text_frame.text += ' Alternate 19-word quotation verified from the original post transcription at https://threadreaderapp.com/thread/1886192184808149383.html and https://www.figma.com/blog/double-click-vibe-coding/ .'
 
-s = slide('Live demo · start', 'cool', 'LIVE DEMO CUE. The chosen concept helps Durham students compare rentals across websites and find compatible flatmates. Use fictional sample listings and profiles in the demonstration, not live aggregation or real personal information. Finalise the actual build prompt with Jason, show it briefly, and submit it to Codex now. Return to the teaching slides while it runs. The club-event example later is a separate teaching example. Have a saved version available as a clearly labelled backup if the live build is still running.')
+s = slide('Live demo · start', 'cool', 'LIVE DEMO CUE. Build a single-page localhost prototype in 10–15 minutes. It helps Durham students filter a small hard-coded set of fictional listings, shortlist one property and receive two fictional flatmate suggestions. Do not add accounts, a database, live scraping, external APIs, maps, messaging, payments or deployment. Show the prompt briefly, submit it to Codex and return to the teaching slides while it runs. Have a clearly labelled saved fallback available if the live build is unfinished.')
 title(s, 'Live demo', 1.1, 67)
 textbox(s, 'One audience. One problem. One useful action.', .64, 4.15, 12, .9, 29)
 line(s,.64,5.37,12.02,'78909D')
 textbox(s, 'DEMO CONCEPT', .64, 5.72, 3.0, .3, 12, weight='Medium')
 textbox(s, 'A tool that helps Durham students compare rentals across websites and find compatible flatmates.', 3.43, 5.60, 9.24, 1.05, 23)
-textbox(s, 'Start the build in Codex. Then return here.', .64, 6.75, 11.8, .3, 14)
+textbox(s, 'LOCALHOST ONLY · FICTIONAL DATA · ONE JOURNEY · 10–15 MIN', .64, 6.53, 11.8, .3, 13, weight='Medium')
+textbox(s, 'Start the build in Codex. Then return here.', .64, 6.91, 11.8, .3, 14)
 
 s = slide('While it builds · the tools', note='Our suggested tools are ChatGPT or Claude for conversation, Codex or Claude Code as coding agents, and Cursor or Lovable as other options. The marks shown are official brand assets. The OpenAI mark is used for ChatGPT and Codex; the Claude mark is used for Claude and Claude Code. ChatGPT and Claude can help shape the idea and brief. Codex and Claude Code can build, run and improve a project. Codex is used in today’s demo. Cursor puts AI help alongside project files and an editor. Lovable is a browser-based app builder. These capabilities overlap; the suggested roles are not exclusive restrictions. Participants do not need all three tools. Choose the participant tool in advance and check account access, device requirements and initial project setup before the event. No price or access promises are made. Official references: https://help.openai.com/en/articles/12677804-what-is-chatgpt-faq ; https://openai.com/codex/ ; https://cursor.com/ ; https://docs.cursor.com/chat/overview ; https://lovable.dev/ ; https://support.anthropic.com/en/articles/11145838-using-claude-code-with-your-pro-or-max-plan .')
 title(s, 'AI tools', 1.05, 49)
@@ -362,7 +369,8 @@ title(s,'Thank you')
 textbox(s,'Amit + Jason',.65,5.95,12,.8,32)
 
 
-destination=OUT/'vibe-coding-workshop-draft-v9.pptx'
-prs.save(destination)
-print(destination)
-print(f'{len(prs.slides)} slides; native editable text; presenter notes on every slide.')
+if __name__ == '__main__':
+    destination=OUT/'vibe-coding-workshop.pptx'
+    prs.save(destination)
+    print(destination)
+    print(f'{len(prs.slides)} slides; native editable text; presenter notes on every slide.')

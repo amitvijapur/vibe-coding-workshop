@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="260 -6 760 644" fill="#121112">
+  <title>DragonFly symbol</title>
+  <desc>Native vector reconstruction of the founder-approved supplied JPEG, not the original author's vector. Five separate components retain the source asymmetry.</desc>
+  <ellipse id="head" cx="640" cy="94" rx="49" ry="50"/>
+  <polygon id="left-wing" points="309,94 459,94 623,205 623,374 458,510 363,529 413,470 572,346 572,243 444,157 373,157"/>
+  <polygon id="left-detached-quad" points="464,220 532,265 532,333 464,389"/>
+  <polygon id="right-upper-wing-and-stem" points="657,205 821,94 970,94 907,156 832,156 708,242 708,563 682,589 656,563"/>
+  <polygon id="right-lower-wing" points="734,346 903,471 954,529 862,513 734,388"/>
+</svg>

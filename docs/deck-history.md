@@ -1,5 +1,9 @@
 # Vibe Coding Workshop
 
+## Current HTML presentation, 1 October 2026
+
+The actual presentation is now one current HTML deck at `out/vibe-coding-workshop.html`, edited in place. It preserves the 20-slide visual direction, adds browser reveals, navigation, overview and presenter notes, and includes Durham University, OpenAI and DragonFly logos on About Us. The demo prompt is scoped to a small localhost prototype designed for a 10 to 15 minute build. PowerPoint export is deferred until the HTML deck has been reviewed.
+
 Version 9 updates Amit's host credential from AWS SBGL to OpenAI Campus Ambassador in the visible slide and presenter notes. All other workshop content remains unchanged from version 8.
 
 Workshop review draft for Amit and Jason. The chosen venture demo helps Durham students compare rental listings and find compatible flatmates. The first prototype uses fictional listings and profiles; real integrations are outside this slide revision.

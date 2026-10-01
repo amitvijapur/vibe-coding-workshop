@@ -2,13 +2,14 @@
 
 A beginner workshop by Amit Vijapur and Jason Cheng. Learn to describe a product, build with AI, inspect the result and improve it through useful feedback.
 
-## Latest slides
+## Current presentation
 
-- [Editable PowerPoint, v9](out/vibe-coding-workshop-draft-v9.pptx)
-- [PDF preview, v9](out/vibe-coding-workshop-draft-v9.pdf)
-- [Slide overview](out/v9-contact-sheet.jpg)
+- [Open the HTML presentation](out/vibe-coding-workshop.html)
+- [Review the demo prompt](docs/demo-prompt.md)
 
-20 slides with presenter notes. Version 9 updates Amit's role to OpenAI Campus Ambassador. Older exports remain available. [Revision history](docs/deck-history.md).
+20 slides with presenter notes and content revealed by the presenter. This is the single working deck, updated in place. Open the HTML file in a browser. It includes the photos and logos and works offline. PowerPoint export will be refreshed after the HTML presentation is reviewed. Amit's role is OpenAI Campus Ambassador, and the About Us slide includes Durham, OpenAI and DragonFly logos.
+
+Use Space or the right arrow to reveal the next point, then advance slides. Left arrow steps back. A reveals the whole current slide, O opens the slide list, N opens presenter notes and F enters fullscreen. The presentation honours reduced-motion settings. General Sans should be installed locally for the intended typography.
 
 ## Workshop flow
 
@@ -18,7 +19,7 @@ The prompting framework is **Purpose, Design, Behaviour, Constraints, Verify**. 
 
 ## Demo
 
-The chosen concept helps Durham students compare rental listings and find compatible flatmates. The first prototype uses clearly labelled fictional listings and profiles, not live website scraping, messaging or payments. This repository contains workshop material, not a completed rental application. The club-event chats remain small teaching examples.
+The demo is scoped for a 10 to 15 minute build of a single page on localhost. Filter six fictional rentals, shortlist one property, choose two living preferences and see two explained flatmate suggestions. The prompt excludes accounts, databases, scraping, external APIs, maps, messaging, payments and deployment. The club-event chats remain small teaching examples.
 
 The complete conversational prompt, framework mapping and live demonstration path are in [docs/demo-prompt.md](docs/demo-prompt.md).
 
@@ -26,18 +27,20 @@ The complete conversational prompt, framework mapping and live demonstration pat
 
 See [SETUP.md](SETUP.md) for installation, building and PDF export.
 
-- `build_slides.py`: editable PowerPoint source and radial backgrounds.
+- `build_slides.py`: shared editable content and radial backgrounds.
+- `build_html.py`: the current HTML presentation builder and teaching reveal order.
+- `web/`: browser presentation controls, styling and HTML shell.
 - `render_review.py`: PDF previews and structural checks.
 - `assets/`: photos, tool marks and provenance.
-- `out/`: latest PowerPoint, PDF and contact sheet.
+- `out/`: current HTML presentation and historical PowerPoint/PDF exports.
 
-Install General Sans locally to preserve the editable layout; the PDF embeds its appearance. Fonts are not redistributed. Edit the builder, rebuild, export and visually inspect before pushing. Direct PowerPoint edits are not automatically imported into the builder.
+Install General Sans locally to preserve the intended layout. Fonts are not redistributed. Edit the shared content or web player, rebuild with `python build_html.py`, and review the current HTML file. Direct PowerPoint edits are not automatically imported into the builder.
 
 ## Sources and rights
 
 Teaching concepts are adapted from [Chai Pin Zheng / Ducksss](https://github.com/Ducksss/vibe-coding-workshop), reviewed at commit `c896843a832bf0c6b4bdfa0714b763ce082a6c84`. The five-part brief comes from that workshop; the beginner feedback loop is our adaptation.
 
-Visual direction references [Orange by Marmalade 2025](https://www.deck.gallery/orange-by-marmalade-2025/), with original editable layouts. The Karpathy quotation is sourced in presenter notes. See [v5 asset provenance](assets/v5/PROVENANCE.md) and [v6 asset provenance](assets/v6/PROVENANCE.md). Portrait cutouts are AI-edited derivatives of supplied photos. Brand marks belong to their owners and do not imply endorsement.
+Visual direction references [Orange by Marmalade 2025](https://www.deck.gallery/orange-by-marmalade-2025/), with original editable layouts. The Karpathy quotation is sourced in presenter notes. See [v5 asset provenance](assets/v5/PROVENANCE.md), [v6 asset provenance](assets/v6/PROVENANCE.md) and [host logo provenance](assets/v10/PROVENANCE.md). Portrait cutouts are AI-edited derivatives of supplied photos. Brand marks belong to their owners and do not imply endorsement.
 
 This is a private collaboration repository. No blanket open-source license is applied because third-party material, portraits, logos and fonts have separate rights. Confirm permission before public redistribution.
 

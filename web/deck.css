@@ -1,0 +1,222 @@
+@font-face {
+  font-family: "Workshop Sans";
+  src: local("GeneralSans-Regular"), local("General Sans Regular");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Workshop Sans";
+  src: local("GeneralSans-Medium"), local("General Sans Medium");
+  font-style: normal;
+  font-weight: 500 900;
+  font-display: swap;
+}
+:root {
+  color-scheme: dark;
+  --stage: #171811;
+  --control: #eeeade;
+  --muted: #b4b2a5;
+  --accent: #e2c475;
+  --ease-reveal: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* { box-sizing: border-box; }
+html, body { width: 100%; height: 100%; margin: 0; }
+body {
+  overflow: hidden;
+  background: var(--stage);
+  color: var(--control);
+  font-family: "Workshop Sans", "General Sans", sans-serif;
+}
+button { font: inherit; }
+button:focus-visible, a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+button { -webkit-tap-highlight-color: transparent; }
+[hidden] { display: none !important; }
+
+#viewport {
+  position: absolute;
+  inset: 0 0 64px;
+  overflow: hidden;
+}
+#canvas {
+  position: absolute;
+  width: 1280px;
+  height: 720px;
+  transform-origin: top left;
+  background: #f7f2df;
+  isolation: isolate;
+}
+.slide {
+  position: absolute;
+  inset: 0;
+  display: none;
+  overflow: hidden;
+  color-scheme: light;
+  color: #181918;
+}
+.slide.is-active { display: block; }
+.shape { position: absolute; font-family: inherit; }
+img.shape { display: block; }
+.graphic-shape {
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.text-shape { line-height: 1.06; }
+.text-shape p { margin: 0; padding: 0; min-height: 1em; }
+.text-shape a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.image-link { display: block; width: 100%; height: 100%; }
+.slide.is-active .heading {
+  animation: title-enter 350ms var(--ease-reveal) both;
+}
+.reveal {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 350ms var(--ease-reveal), transform 350ms var(--ease-reveal), visibility 350ms;
+}
+.reveal.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.slide.is-restoring .reveal { transition: none; }
+@keyframes title-enter {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+#toolbar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 18px;
+  background: var(--stage);
+  z-index: 30;
+}
+.toolbar-group { display: flex; align-items: center; gap: 6px; }
+#toolbar button {
+  padding: 8px 11px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--control);
+  font-size: 13px;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: background-color 140ms, color 140ms;
+}
+#toolbar button:hover { background: #303126; }
+#toolbar button:active { background: #454635; }
+#toolbar button:disabled { opacity: .35; cursor: default; }
+#toolbar button[aria-expanded="true"], #toolbar button[aria-pressed="true"] {
+  color: var(--accent);
+  background: #303126;
+}
+#counter { min-width: 52px; text-align: center; font-size: 13px; font-variant-numeric: tabular-nums; }
+#reveal-count { min-width: 100px; color: var(--muted); font-size: 12px; text-align: center; }
+#progress {
+  position: absolute;
+  bottom: 63px;
+  left: 0;
+  height: 2px;
+  background: var(--accent);
+  transform-origin: left;
+  width: 100%;
+  transform: scaleX(0);
+  z-index: 31;
+  transition: transform 250ms var(--ease-reveal);
+}
+
+#overview, #notes {
+  position: absolute;
+  z-index: 20;
+  bottom: 77px;
+  right: 18px;
+  max-height: calc(100vh - 106px);
+  overflow-y: auto;
+  border: 1px solid #555547;
+  border-radius: 6px;
+  background: #24251d;
+  box-shadow: 0 14px 42px #0005;
+}
+#overview {
+  left: 18px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+  gap: 4px;
+  padding: 12px;
+}
+#overview button {
+  text-align: left;
+  padding: 16px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--control);
+  line-height: 1.4;
+  cursor: pointer;
+}
+#overview button:hover { background: #343629; }
+#overview button[aria-current="true"] { border-color: var(--accent); color: var(--accent); }
+.overview-number { display: inline-block; min-width: 27px; color: var(--muted); font-variant-numeric: tabular-nums; }
+#notes {
+  width: min(520px, calc(100vw - 36px));
+  padding: 22px 26px;
+  white-space: pre-wrap;
+  font-size: 16px;
+  line-height: 1.6;
+}
+#announcer, .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 700px) {
+  #toolbar { gap: 3px; padding: 10px 5px; flex-wrap: wrap; }
+  #toolbar button { padding: 7px; font-size: 12px; }
+  #reveal-count { display: none; }
+  #counter { min-width: 43px; }
+  #overview { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .reveal { transform: none; }
+}
+@media print {
+  @page { size: 13.333333in 7.5in; margin: 0; }
+  html, body { width: 1280px; height: auto; overflow: visible; background: transparent; }
+  #toolbar, #progress, #overview, #notes, #announcer { display: none !important; }
+  #viewport { position: static; overflow: visible; }
+  #canvas { position: static; width: 1280px; height: auto; transform: none !important; background: transparent; }
+  .slide, .slide.is-active {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    display: block !important;
+    break-after: page;
+    page-break-after: always;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .slide:last-child { break-after: auto; page-break-after: auto; }
+  .reveal { opacity: 1 !important; visibility: visible !important; transform: none !important; }
+  .heading { animation: none !important; }
+}

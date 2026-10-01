@@ -2,34 +2,53 @@
 
 ## Demo concept
 
-A tool that helps Durham students compare rentals across websites and find compatible flatmates.
+A localhost-only prototype that helps Durham students shortlist a fictional rental and find compatible fictional flatmates.
 
 ## Prompt to use
 
-Hey, I want to build an app that helps Durham students find somewhere to rent and people to live with. Searching across different rental websites is frustrating, so I want one place where students can compare properties and find compatible flatmates.
+Hey, I want to make a small app that helps Durham students find somewhere to rent and people to live with. Looking across lots of rental websites is frustrating, so I want to show how listings from different places could sit in one simple product.
 
-Make it feel welcoming and trustworthy, with a clean layout, clear property photos and prices, and an interface that works well on a phone.
+Please build a polished single-page prototype using plain HTML, CSS and JavaScript. Run it only on localhost. Make it feel welcoming and trustworthy, and make sure it works on a phone.
 
-Let me filter properties by weekly rent, number of bedrooms, area and whether bills are included. Each listing should show its source. Let me save favourites and compare a few properties side by side.
+Use six clearly labelled fictional Durham properties. Let me choose a maximum weekly rent and an area, then show the matching properties. Each card should include a photo placeholder, weekly rent, bedrooms, area, whether bills are included and a fictional source name. Let me shortlist one property.
 
-Add a **Find your flatmate** section where students can browse profiles by budget, move-in date and living preferences, such as quiet evenings or a more social house. Explain which preferences each suggested match shares.
+After I shortlist a property, show a **Find your flatmate** step. Let me choose two living preferences, then recommend two fictional flatmate profiles and explain the preferences we share.
 
-For this first version, use clearly labelled fictional properties and student profiles. Show how listings from different websites would appear together, but do not scrape websites or imply that the listings are live. Skip accounts, real messaging and payments. A shortlist and a preview of a flatmate connection request are enough.
+I've only got 10 to 15 minutes for this demo, so keep this first version deliberately small. Use hard-coded sample data. Do not add accounts, a database, live website scraping, external APIs, maps, real messaging, payments or deployment. Do not install extra packages unless the existing project truly needs them.
 
-Please check that the filters show the right properties, favourites remain saved after refreshing, the comparison works and flatmate suggestions reflect the selected preferences. Make sure everything is usable on a phone.
+Please check that:
+
+- the app opens on localhost;
+- changing the rent and area filters changes the visible properties;
+- I can shortlist one property;
+- the flatmate suggestions reflect the two preferences I choose; and
+- the full journey is usable on a phone-sized screen.
+
+When it works, tell me the local URL and give me a short summary of what you checked.
+
+## Build boundary
+
+This is designed for a 10–15 minute live build. The complete journey is:
+
+1. Set a budget and area.
+2. Choose one fictional property.
+3. Choose two living preferences.
+4. See two fictional flatmate suggestions with a short explanation.
+
+Anything beyond that journey is out of scope for the workshop demo.
 
 ## How it fits the framework
 
 | Framework part | What it covers |
 | --- | --- |
-| Purpose | Help Durham students find housing and compatible flatmates. |
+| Purpose | Help Durham students shortlist a rental and identify compatible flatmates. |
 | Design | Welcoming, trustworthy and mobile-friendly. |
-| Behaviour | Filter, shortlist, compare and browse flatmate matches. |
-| Constraints | Fictional data and a focused prototype without live integrations. |
-| Verify | Test the filters, saved favourites, comparison, matching and phone layout. |
+| Behaviour | Filter listings, shortlist one property and generate two explained flatmate suggestions. |
+| Constraints | One static page on localhost, hard-coded fictional data and no integrations or user accounts. |
+| Verify | Open locally, test both filters, shortlist one property, test matching and check a phone-sized layout. |
 
 ## Live demonstration path
 
-Find a property within a student's budget, add it to a shortlist, compare it with another option and then find a flatmate with compatible living preferences.
+Pick a maximum weekly rent and area, shortlist one matching property, choose two living preferences and view the two suggested flatmates.
 
 Use fictional data throughout. Inspect the result yourself, give one concrete follow-up prompt and keep a clearly labelled prepared fallback in case the live generation is unfinished.
