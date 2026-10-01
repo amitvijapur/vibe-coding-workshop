@@ -100,28 +100,27 @@ textbox(s, 'Jason Cheng', 9.47, 2.6, 3.24, .8, 31, weight='Medium')
 textbox(s, 'CTO, DragonFly\nComputer Science, Durham\nOpenAI Campus\nAmbassador', 3.10, 3.65, 3.47, 2.3, 21, spacing=1.25)
 textbox(s, 'CEO, DragonFly\nEconomics, Durham\nEntrepreneur Society\nPresident', 9.47, 3.65, 3.24, 2.3, 22, spacing=1.25)
 def host_logo(kind, x):
-    height = .65
+    height = 1.0
     if kind == 'Durham crest':
         pic = s.shapes.add_picture(str(ASSETS/'v10'/'durham-university.png'),
-                                  Inches(x), Inches(6.35), width=Inches(height*857/972), height=Inches(height))
+                                  Inches(x), Inches(6.25), width=Inches(height*857/972), height=Inches(height))
         pic.crop_left = 0
         pic.crop_top = 3/1413
         pic.crop_right = (3230-857)/3230
         pic.crop_bottom = (1413-975)/1413
     elif kind == 'OpenAI logo':
         pic = s.shapes.add_picture(str(ASSETS/'v5'/'openai.png'),
-                                  Inches(x), Inches(6.35), width=Inches(height), height=Inches(height))
+                                  Inches(x), Inches(6.25), width=Inches(height), height=Inches(height))
     else:
         pic = s.shapes.add_picture(str(ASSETS/'v10'/'dragonfly-mark-soft-black.png'),
-                                  Inches(x), Inches(6.35), width=Inches(height*661/545), height=Inches(height))
+                                  Inches(x), Inches(6.25), width=Inches(height*661/545), height=Inches(height))
         pic.crop_left = 49/760
         pic.crop_right = 50/760
         pic.crop_top = 50/644
         pic.crop_bottom = 49/644
     pic.name = kind
 
-for kind,x in [('Durham crest',3.10),('OpenAI logo',4.17),('DragonFly logo',5.24),
-               ('Durham crest',9.47),('DragonFly logo',10.54)]:
+for kind,x in [('Durham crest',2.31),('OpenAI logo',6.17),('DragonFly logo',10.06)]:
     host_logo(kind,x)
 
 s = slide('Today’s plan', 'sun', 'Set expectations without inventing a total session length. First we run a live demonstration while teaching two frameworks: a useful prompt and a feedback loop. Next allow 5–10 minutes for questions, then everyone builds a small project for 30–45 minutes. Agree the exact duration and speaking split before the workshop. The demonstration and explanation timings remain flexible.')

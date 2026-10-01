@@ -7,7 +7,7 @@ A beginner workshop by Amit Vijapur and Jason Cheng. Learn to describe a product
 - [Open the HTML presentation](out/vibe-coding-workshop.html)
 - [Review the demo prompt](docs/demo-prompt.md)
 
-19 slides with presenter notes and one automatic fade per slide. All content appears together, and each click advances to the next slide. This is the single working deck, updated in place. Open the HTML file in a browser. It includes the photos and logos and works offline. PowerPoint export will be refreshed after the HTML presentation is reviewed. Amit's role is OpenAI Campus Ambassador, and the About Us slide includes equally sized affiliation marks under each host's biography.
+19 slides with presenter notes and one automatic fade per slide. All content appears together, and each click advances to the next slide. This is the single working deck, updated in place. Open the HTML file in a browser. It includes the photos and logos and works offline. PowerPoint export will be refreshed after the HTML presentation is reviewed. Amit's role is OpenAI Campus Ambassador, and the About Us slide includes one shared row of larger Durham, OpenAI and DragonFly marks.
 
 Use Space or the right arrow to advance one slide. Left arrow goes back. O opens the slide list, N opens presenter notes and F enters fullscreen. The presentation honours reduced-motion settings. General Sans should be installed locally for the intended typography.
 
