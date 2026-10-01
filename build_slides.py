@@ -245,9 +245,9 @@ for i,label in enumerate(['What happened','What you expected','What to keep','Ho
     textbox(s,label,7.85,3.12+i*.68,4.8,.6,25,weight='Medium')
 textbox(s,'Change one thing. Recheck it. Save what works.',.65,6.64,12,.5,22)
 
-s = slide('Feedback and iteration example', 'paper', 'A hypothetical second message to Codex about the Durham rental prototype. The rent filter is described as showing an over-budget property for this teaching example; do not imply this failure occurred in the live demo. The message gives the observation, expected result, what to keep and how to check. After AI updates the app, the presenter rechecks the filters and saves the working version, completing Check, Describe, Change, Recheck, Save.')
+s = slide('Feedback and iteration example', 'paper', 'A hypothetical second message to Codex about the Durham rental prototype. The rent filter is described as showing an over-budget property for this teaching example; do not imply this failure occurred in the live demo. The four highlights are what to tell AI within step 02, Describe. After AI updates the app, the presenter rechecks the filters and saves the working version. The five checkpoints along the bottom repeat the complete loop from the previous slide: Check, Describe, Change, Recheck, Save.')
 title(s,'Feedback and iteration')
-textbox(s, 'EXAMPLE · A SECOND MESSAGE TO CODEX', .65, 2.10, 12, .35, 12, MUTED)
+textbox(s, 'STEP 02 · DESCRIBE: A SECOND MESSAGE TO CODEX', .65, 2.10, 12, .35, 12, MUTED)
 mini_rect(.65,2.48,12.03,3.92,'FAF9F5','D4D4CC')
 textbox(s,'Codex',.98,2.63,3.0,.4,20,weight='Medium')
 line(s,.98,3.15,11.35,'D4D4CC')
@@ -279,8 +279,10 @@ textbox(s,'Ask a follow-up…',1.12,6.0,9.8,.24,12,MUTED)
 textbox(s,'↑',11.85,5.96,.29,.30,16)
 for i,(label,words,color) in enumerate(feedback_segments):
     x=.65+i*3.09
-    mini_rect(x,6.82,.22,.22,color)
-    textbox(s,label,x+.35,6.73,2.67,.51,19)
+    mini_rect(x,6.56,.17,.17,color)
+    textbox(s,label,x+.28,6.48,2.74,.37,15)
+for i,step in enumerate(['Check','Describe','Change','Recheck','Save']):
+    textbox(s,f'0{i+1}  {step}',.65+i*2.43,7.02,2.25,.33,17,weight='Medium')
 
 s = slide('Live demo · review', 'cool', 'Switch back to Codex. Show its status and a brief summary of the work. If the build is ready, show the result and compare it with the original brief. Ask what was requested and what the room can observe. If it is still running, say so. Use a saved version only if labelled as prepared earlier; do not claim it was generated live. The next slide gives concrete checks for complete beginners.')
 title(s, 'Review the demo', 1.03, 79)
